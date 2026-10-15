@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" style="background: linear-gradient(to bottom, white, #ff3333); background-repeat: no-repeat; min-height: 100%;">
     <head>
         <meta charset="utf-8">
         <title>Youtube Viewer</title>
-        <style></style>
+        <style>
+            body {font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
+            button:hover {background-color: #ffaaaa; cursor: pointer;}
+            button:active {background-color: #aa1111; cursor: pointer;}
+            .noborder {border: none;}
+            .roundborder {border-radius: 8px;}
+            .button {border: none; border-radius: 8px; background-color: #ff3333;}
+        </style>
         <script defer>
             const open_byid = (vid) => {
                 var screen = document.getElementById("screen");
@@ -19,22 +26,29 @@
                 var getid_1 = getid.split("&")[0];
                 open_byid(getid_1);
             };
-
         </script>
+        <span>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+        </span>
     </head>
     <body>
         <!--
         <iframe width="560" height="315" src="https://www.youtube.com/embed/nFHPwsIuwW0?si=kw-HFsM_kWJIOrPY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         -->
         <h2>Youtube Viewer</h2>
-        <a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer">ecosiaで検索</a>
+        <a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a>
         <div>
-        <input type="text" placeholder="動画ID" id="in_id">
-        <button type="button" onclick="by_id()">OK</button>
-        
-        <input type="text" placeholder="動画URL" id="in_url">
-        <button type="button" onclick="by_url()">OK</button>
+        <input type="text" placeholder="動画URL" id="in_url" class="roundborder">
+        <button type="button" onclick="by_url();"; class="button">OK</button>
+        <input type="text" placeholder="動画ID" id="in_id" class="roundborder">
+        <button type="button" onclick="by_id();" class="button">OK</button>
         </div>
-        <iframe src="" id="screen" allowfullscreen></iframe>
+        <div>
+            <input type="range" max="1000" min="0"><span id="width_value"></span>
+            <button onclick="ch_size();" class="button">OK</button>
+        </div>
+        <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto;"></iframe>
     </body>
 </html>
