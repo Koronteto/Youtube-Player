@@ -11,21 +11,33 @@
             .roundborder {border-radius: 8px;}
             .button {border: none; border-radius: 8px; background-color: #ff3333;}
         </style>
-        <script defer>
+        <script >
+            /*
+            const width_value = document.getElementById("width_value");
+            const width_value_show = document.getElementById("width_value_show");
+            width_value.addEventListener("input",(e) => {
+                width_value_show.textContent = e.target.value;
+            });
+            */
             const open_byid = (vid) => {
-                var screen = document.getElementById("screen");
+                const screen = document.getElementById("screen");
                 screen.src = `https://www.youtube.com/embed/${vid}`;
             };
             const by_id = () => {
-                var in_id = document.getElementById("in_id").value;
+                const in_id = document.getElementById("in_id").value;
                 open_byid(in_id);
             };
             const by_url = () => {
-                var vurl = document.getElementById("in_url").value;
-                var getid = vurl.split("?v=")[1];
-                var getid_1 = getid.split("&")[0];
+                const vurl = document.getElementById("in_url").value;
+                const getid = vurl.split("?v=")[1];
+                const getid_1 = getid.split("&")[0];
                 open_byid(getid_1);
             };
+            function ch_size() {
+                const screen = document.getElementById("screen");
+                screen.width = document.getElementById("width_value").value
+                screen.height = document.getElementById("height_value").value
+            }
         </script>
         <span>
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +56,18 @@
         <button type="button" onclick="by_url();"; class="button">OK</button>
         <input type="text" placeholder="動画ID" id="in_id" class="roundborder">
         <button type="button" onclick="by_id();" class="button">OK</button>
+        <span>動画サイズ：</span>
+        <span id="width_value_show">横</span><input type="range" max="1000" min="0" value="560" id="width_value">
+        <span id="height_value_show">縦</span><input type="range" max="1000" min="0" value="315" id="height_value">
+        <button onclick="ch_size();" class="button">OK</button>
         </div>
+        <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
     </body>
+    <script>
+            let width = document.getElementById("width_value");
+            let height = document.getElementById("height_value");
+            width.max = window.innerWidth - 30;
+            height.max = window.innerHeight - 40;
+    </script>
 </html>
