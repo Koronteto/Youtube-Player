@@ -2,7 +2,7 @@
 <html lang="ja" style="background: linear-gradient(to bottom, white, #ff3333); background-repeat: no-repeat; min-height: 100%;">
     <head>
         <meta charset="utf-8">
-        <title>Youtube Viewer</title>
+        <title>YP</title>
         <style>
             body {font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
             button:hover {background-color: #ffaaaa; cursor: pointer;}
@@ -28,8 +28,8 @@
                 open_byid(in_id);
             };
             const by_url = () => {
-                const vurl = document.getElementById("in_url").value;
-                const getid = vurl.split("?v=")[1];
+                const in_url = document.getElementById("in_url").value;
+                const getid = in_url.split("?v=")[1];
                 const getid_1 = getid.split("&")[0];
                 open_byid(getid_1);
             };
@@ -37,6 +37,12 @@
                 const screen = document.getElementById("screen");
                 screen.width = document.getElementById("width_value").value
                 screen.height = document.getElementById("height_value").value
+            };
+            function in_clear() {
+                const in_id = document.getElementById("in_id");
+                const in_url = document.getElementById("in_url");
+                in_id.value = '';
+                in_url.value = '';
             }
         </script>
         <span>
@@ -49,7 +55,8 @@
         <!--
         <iframe width="560" height="315" src="https://www.youtube.com/embed/nFHPwsIuwW0?si=kw-HFsM_kWJIOrPY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         -->
-        <h2>Youtube Viewer</h2>
+        <h2>Youtube Player</h2>
+        <span>※注：</span><u>Google以外で動画を検索</u><span>　例：</span>
         <a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a>
         <div>
         <input type="text" placeholder="動画URL" id="in_url" class="roundborder">
@@ -60,6 +67,9 @@
         <span id="width_value_show">横</span><input type="range" max="1000" min="0" value="560" id="width_value">
         <span id="height_value_show">縦</span><input type="range" max="1000" min="0" value="315" id="height_value">
         <button onclick="ch_size();" class="button">OK</button>
+        </div>
+        <div>
+            <button type="button" onclick="in_clear();" class="button">リセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
