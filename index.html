@@ -29,7 +29,7 @@
         <span>動画サイズ：</span>
         <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue">
         <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue">
-        <!-- <button onclick="changeSize();" class="button roundBorder">OK</button> -->
+        <button onclick="resetScreenSize();" class="button roundBorder">画面サイズをリセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
@@ -60,6 +60,17 @@
                 IN_ID.value = '';
                 IN_URL.value = '';
             };
+            function resetScreenSize() {
+                const widthRange = document.getElementById("widthValue");
+                const heightRange = document.getElementById("heightValue");
+                const screen = document.getElementById("screen");
+                let windowWidth = 560
+                let windowHeight = 315
+                widthRange.value = windowWidth;
+                heightRange.value = windowHeight;
+                screen.width = windowWidth;
+                screen.height = windowHeight;
+            }
             function setScreenSize() {
                 const widthRange = document.getElementById("widthValue");
                 const heightRange = document.getElementById("heightValue");
