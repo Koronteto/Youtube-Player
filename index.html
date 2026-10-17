@@ -2,6 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
+        <meta name="referrer" content="strict-origin-when-cross-origin">
         <title>YP</title>
         <style>
             body {font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
@@ -39,11 +40,11 @@
         <button onclick="setScreenSize();" class="button roundBorder">画面サイズをリセット</button>
         </div>
         <br>
-        <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
+        <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" referrerpolicy="strict-origin-when-cross-origin"  style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
         <script>
             const openUseId = (videoId) => {
                 const screen = document.getElementById("screen");
-                screen.src = `https://www.youtube.com/embed/${videoId}`;
+                screen.src = `https://www.youtube-nocookie.com/embed/${videoId}`;
                 inputClear();
             };
             const byId = () => {
