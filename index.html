@@ -9,13 +9,11 @@
             button:active {background-color: #aa1111; cursor: pointer;}
             html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%;}
             .roundBorder {border-radius: 8px;}
-            .button {border: none; border-radius: 8px; background-color: #ff3333;}
+            .button {border: none; background-color: #ff3333;}
         </style>
-        <span>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-        </span>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
     </head>
     <body>
         <!--
@@ -26,16 +24,16 @@
         <a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a>
         <div>
         <input type="text" placeholder="動画URL" id="IN_URL" class="roundBorder">
-        <button type="button" class="button" id="byUrlButton">OK</button>
+        <button type="button" class="button roundBorder" id="byUrlButton">OK</button>
         <input type="text" placeholder="動画ID" id="IN_ID" class="roundBorder">
-        <button type="button" class="button" id="byIdButton">OK</button>
+        <button type="button" class="button roundBorder" id="byIdButton">OK</button>
         <span>動画サイズ：</span>
         <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue">
         <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue">
-        <button onclick="changeSize();" class="button">OK</button>
+        <!-- <button onclick="changeSize();" class="button roundBorder">OK</button> -->
         </div>
         <div>
-            <button type="button" onclick="inputClear();" class="button">リセット</button>
+            <button type="button" onclick="inputClear();" class="button roundBorder">リセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
@@ -75,8 +73,10 @@
                 screen.height = window.innerHeight * 0.3
             };
             setScreenSize();
-            document.getElementById("byUrlButton").addEventListener("click",byUrl);
-            document.getElementById("byIdButton").addEventListener("click",byId);
+            document.getElementById("byUrlButton").addEventListener("click", byUrl);
+            document.getElementById("byIdButton").addEventListener("click", byId);
+            document.getElementById("widthValue").addEventListener("input", changeSize);
+            document.getElementById("heightValue").addEventListener("input", changeSize);
         </script>
     </body>
 </html>
