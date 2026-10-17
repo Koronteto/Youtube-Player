@@ -10,6 +10,7 @@
             html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%;}
             .roundBorder {border-radius: 8px;}
             .button {border: none; background-color: #ff3333;}
+            .whiteBack {background-color: mistyrose;}
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,10 +23,16 @@
         <h2>Youtube Player</h2>
         <p>※注：<b>Google以外で動画を検索！</b>　例：<a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a></p>
         <div>
-        <input type="text" placeholder="動画URL" id="IN_URL" class="roundBorder">
-        <button type="button" class="button roundBorder" id="byUrlButton">OK</button>
-        <input type="text" placeholder="動画ID" id="IN_ID" class="roundBorder">
-        <button type="button" class="button roundBorder" id="byIdButton">OK</button>
+            <div>
+                <input type="text" placeholder="動画URL" id="IN_URL" class="roundBorder">
+                <button type="button" class="button roundBorder" id="byUrlButton">OK</button>
+            </div>
+            <div>
+                <input type="text" placeholder="動画ID" id="IN_ID" class="roundBorder">
+                <button type="button" class="button roundBorder" id="byIdButton">OK</button>
+            </div>
+        </div>
+        <div>
         <span>動画サイズ：</span>
         <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue">
         <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue">
