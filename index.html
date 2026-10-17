@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" style="background: linear-gradient(to bottom, white, #ff3333); background-repeat: no-repeat; min-height: 100%;">
+<html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>YP</title>
@@ -7,44 +7,10 @@
             body {font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
             button:hover {background-color: #ffaaaa; cursor: pointer;}
             button:active {background-color: #aa1111; cursor: pointer;}
-            .noborder {border: none;}
-            .roundborder {border-radius: 8px;}
+            html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%;}
+            .roundBorder {border-radius: 8px;}
             .button {border: none; border-radius: 8px; background-color: #ff3333;}
         </style>
-        <script >
-            /*
-            const width_value = document.getElementById("width_value");
-            const width_value_show = document.getElementById("width_value_show");
-            width_value.addEventListener("input",(e) => {
-                width_value_show.textContent = e.target.value;
-            });
-            */
-            const open_byid = (vid) => {
-                const screen = document.getElementById("screen");
-                screen.src = `https://www.youtube.com/embed/${vid}`;
-            };
-            const by_id = () => {
-                const in_id = document.getElementById("in_id").value;
-                open_byid(in_id);
-            };
-            const by_url = () => {
-                const in_url = document.getElementById("in_url").value;
-                const getid = in_url.split("?v=")[1];
-                const getid_1 = getid.split("&")[0];
-                open_byid(getid_1);
-            };
-            function ch_size() {
-                const screen = document.getElementById("screen");
-                screen.width = document.getElementById("width_value").value
-                screen.height = document.getElementById("height_value").value
-            };
-            function in_clear() {
-                const in_id = document.getElementById("in_id");
-                const in_url = document.getElementById("in_url");
-                in_id.value = '';
-                in_url.value = '';
-            }
-        </script>
         <span>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,31 +22,61 @@
         <iframe width="560" height="315" src="https://www.youtube.com/embed/nFHPwsIuwW0?si=kw-HFsM_kWJIOrPY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         -->
         <h2>Youtube Player</h2>
-        <span>※注：</span><u>Google以外で動画を検索</u><span>　例：</span>
+        <span>※注：</span><b>Google以外で動画を検索</b><span>　例：</span>
         <a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a>
         <div>
-        <input type="text" placeholder="動画URL" id="in_url" class="roundborder">
-        <button type="button" onclick="by_url();"; class="button">OK</button>
-        <input type="text" placeholder="動画ID" id="in_id" class="roundborder">
-        <button type="button" onclick="by_id();" class="button">OK</button>
+        <input type="text" placeholder="動画URL" id="IN_URL" class="roundBorder">
+        <button type="button" class="button" id="byUrlButton">OK</button>
+        <input type="text" placeholder="動画ID" id="IN_ID" class="roundBorder">
+        <button type="button" class="button" id="byIdButton">OK</button>
         <span>動画サイズ：</span>
-        <span id="width_value_show">横</span><input type="range" max="1000" min="0" value="560" id="width_value">
-        <span id="height_value_show">縦</span><input type="range" max="1000" min="0" value="315" id="height_value">
-        <button onclick="ch_size();" class="button">OK</button>
+        <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue">
+        <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue">
+        <button onclick="changeSize();" class="button">OK</button>
         </div>
         <div>
-            <button type="button" onclick="in_clear();" class="button">リセット</button>
+            <button type="button" onclick="inputClear();" class="button">リセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
+        <script>
+            const openUseId = (vid) => {
+                const screen = document.getElementById("screen");
+                screen.src = `https://www.youtube.com/embed/${vid}`;
+            };
+            const byId = () => {
+                const IN_ID = document.getElementById("IN_ID").value;
+                openUseId(IN_ID);
+            };
+            const byUrl = () => {
+                const IN_URL = document.getElementById("IN_URL").value;
+                let getId = IN_URL.split("?v=")[1];
+                getId = getId.split("&")[0];
+                openUseId(getId);
+            };
+            function changeSize() {
+                const screen = document.getElementById("screen");
+                screen.width = document.getElementById("widthValue").value;
+                screen.height = document.getElementById("heightValue").value;
+            };
+            function inputClear() {
+                const IN_ID = document.getElementById("IN_ID");
+                const IN_URL = document.getElementById("IN_URL");
+                IN_ID.value = '';
+                IN_URL.value = '';
+            };
+            function setScreenSize() {
+                const width = document.getElementById("widthValue");
+                const height = document.getElementById("heightValue");
+                width.max = window.innerWidth - 30;
+                height.max = window.innerHeight - 40;
+                const screen = document.getElementById("screen");
+                screen.width = window.innerWidth * 0.3
+                screen.height = window.innerHeight * 0.3
+            };
+            setScreenSize();
+            document.getElementById("byUrlButton").addEventListener("click",byUrl);
+            document.getElementById("byIdButton").addEventListener("click",byId);
+        </script>
     </body>
-    <script>
-            let width = document.getElementById("width_value");
-            let height = document.getElementById("height_value");
-            width.max = window.innerWidth - 30;
-            height.max = window.innerHeight - 40;
-            let screen = document.getElementById("screen");
-            screen.width = window.innerWidth * 0.3
-            screen.height = window.innerHeight * 0.3
-    </script>
 </html>
