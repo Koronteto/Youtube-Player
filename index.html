@@ -33,7 +33,7 @@
         <!-- <button onclick="changeSize();" class="button roundBorder">OK</button> -->
         </div>
         <div>
-            <button type="button" onclick="inputClear();" class="button roundBorder">リセット</button>
+            <button type="button" onclick="inputClear();" class="button roundBorder">入力リセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
@@ -41,6 +41,7 @@
             const openUseId = (videoId) => {
                 const screen = document.getElementById("screen");
                 screen.src = `https://www.youtube.com/embed/${videoId}`;
+                inputClear();
             };
             const byId = () => {
                 const IN_ID = document.getElementById("IN_ID").value;
@@ -64,13 +65,17 @@
                 IN_URL.value = '';
             };
             function setScreenSize() {
-                const width = document.getElementById("widthValue");
-                const height = document.getElementById("heightValue");
-                width.max = window.innerWidth - 30;
-                height.max = window.innerHeight - 40;
+                const widthRange = document.getElementById("widthValue");
+                const heightRange = document.getElementById("heightValue");
                 const screen = document.getElementById("screen");
-                screen.width = window.innerWidth * 0.3
-                screen.height = window.innerHeight * 0.3
+                widthRange.max = window.innerWidth - 30;
+                heightRange.max = window.innerHeight - 40;
+                let windowWidth = Math.round(window.innerWidth * 0.3);
+                let windowHeight = Math.round(window.innerHeight * 0.3);
+                widthRange.value = windowWidth;
+                heightRange.value = windowHeight;
+                screen.width = windowWidth;
+                screen.height = windowHeight;
             };
             setScreenSize();
             document.getElementById("byUrlButton").addEventListener("click", byUrl);
