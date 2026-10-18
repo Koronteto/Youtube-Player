@@ -7,13 +7,15 @@
             button:hover {background-color: #ffaaaa; cursor: pointer;}
             button:active {background-color: #aa1111; cursor: pointer;}
             html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%; font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
-            .roundBorder {border-radius: 8px;}
+            .roundBorder {border-radius: 8px; }
             .button {border: none; background-color: #ff3333;}
             .whiteBack {background-color: mistyrose;}
+            .bottomForm {position: fixed; bottom: 10px; left: 10px; z-index: 1000;}
+            .linkForm {padding: 8px 15px; display: inline-block; border-radius: 10px;}
         </style>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">-->
     </head>
     <body>
         <!--
@@ -39,6 +41,9 @@
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
+        <div class="bottomForm roundBorder">
+            <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="linkForm whiteBack">改善点はぜひここに！</a>
+        </div>
         <script>
             const openUseId = (videoId) => {
                 const screen = document.getElementById("screen");
