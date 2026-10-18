@@ -5,13 +5,16 @@
         <title>YP</title>
         <style>
             button:hover {background-color: #ffaaaa; cursor: pointer;}
-            button:active {background-color: #aa1111; cursor: pointer;}
+            button:active {background-color: white; cursor: pointer;}
             html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%; font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
             .roundBorder {border-radius: 8px; }
-            .button {border: none; background-color: #ff3333;}
-            .whiteBack {background-color: mistyrose;}
-            .bottomForm {position: fixed; bottom: 10px; left: 10px; z-index: 1000;}
-            .linkForm {padding: 8px 15px; display: inline-block; border-radius: 10px;}
+            .button {border: none; background-color: #ff3333; color: mistyrose;}
+            .whiteBack {background-color: white;}
+            .redBack {background-color: #ff3333;}
+            .redColor {color: #ff3333; accent-color: #ff3333;}
+            .bottomForm {position: fixed; top: 10px; right: 10px; z-index: 1000;}
+            .linkForm {padding: 8px 15px; display: inline-block; border-radius: 10px; color: mistyrose;}
+            .screen {display: block; margin: 0 auto; border-style: solid; border-color: mistyrose;}
         </style>
         <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,14 +38,14 @@
         </div>
         <div>
         <span>動画サイズ：</span>
-        <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue">
-        <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue">
+        <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue" class="redColor">
+        <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue" class="redColor">
         <button class="button roundBorder" id="resetScreenSize">画面サイズをリセット</button>
         </div>
         <br>
-        <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" style="display: block; margin: 0 auto; border-style: solid; border-color: white;"></iframe>
+        <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" class="screen"></iframe>
         <div class="bottomForm roundBorder">
-            <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="linkForm whiteBack">改善点はぜひここに！</a>
+            <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="linkForm redBack">改善点はぜひここに！</a>
         </div>
         <script>
             const openUseId = (videoId) => {
