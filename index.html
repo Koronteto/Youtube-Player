@@ -17,7 +17,7 @@
             .inputBack {background-color: white; border-radius: 10px; padding: 10px; margin: 8px; }
             .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 1000;}
             .formLinkButton {padding: 2px 8px; display: inline-block;}
-            .screen {display: block; margin: 0 auto; border-style: solid; border-color: mistyrose; border: 2px dashed mistyrose; box-shadow: 0px 0px 10px 0px black ;}
+            .screen {display: block; margin: 0 auto; border: 2px dashed mistyrose; box-shadow: 0px 0px 10px 0px black ;}
         </style>
         <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +41,7 @@
                 <button type="button" class="button" id="byIdButton">OK</button>
             </div>
             <div>
-            <span>動画サイズ</span>
+            動画サイズ
             <label for="widthValue">横：</label><input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor input"><span id="widthValueLabel"></span>
             <label for="heightValue">縦</label><input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor input"><span id="heightValueLabel"></span>
             <button class="button" id="resetScreenSize">画面サイズをリセット</button>
@@ -51,7 +51,7 @@
         <div class="formButtonContain">
             <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="formLinkButton button">改善点はぜひここに！</a>
         </div>
-        <div><iframe src="" id="screen" allowfullscreen frameborder=0 width="560" height="315" class="screen"></iframe></div>
+        <div><iframe src="" id="screen" allowfullscreen frameborder="0" width="560" height="315" class="screen"></iframe></div>
         
         <script>
             const IN_ID = document.getElementById("IN_ID");
