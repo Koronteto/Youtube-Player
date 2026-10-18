@@ -4,17 +4,21 @@
         <meta charset="utf-8">
         <title>YP</title>
         <style>
-            button:hover {background-color: #ffaaaa; cursor: pointer;}
-            button:active {background-color: white; cursor: pointer;}
+            button {cursor: pointer}
+            input {cursor: pointer;}
+            button:hover {background-color: #ff5555;}
+            button:active {background-color: white;}
+            a:hover {color: rebeccapurple;}
             html {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100%; font-family: "Zen Maru Gothic", sans-serif; font-weight: 500;}
-            .roundBorder {border-radius: 8px; }
-            .button {border: none; background-color: #ff3333; color: mistyrose;}
+            .inputText {border-radius: 8px; margin: 4px;}
+            .button {border: none; background-color: #ff3333; color: mistyrose; border-radius: 8px; padding: 2px 4px;}
             .whiteBack {background-color: white;}
-            .redBack {background-color: #ff3333;}
+            .redBack {background-color: #ff3333;}   
             .redColor {color: #ff3333; accent-color: #ff3333;}
-            .bottomForm {position: fixed; top: 10px; right: 10px; z-index: 1000;}
-            .linkForm {padding: 8px 15px; display: inline-block; border-radius: 10px; color: mistyrose;}
+            .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 1000;}
+            .formLinkButton {padding: 2px 8px; display: inline-block; border-radius: 8px; color: mistyrose;}
             .screen {display: block; margin: 0 auto; border-style: solid; border-color: mistyrose;}
+            .ecosiaLink {color: yellowgreen;}
         </style>
         <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,70 +29,57 @@
         <iframe width="560" height="315" src="https://www.youtube.com/embed/nFHPwsIuwW0?si=kw-HFsM_kWJIOrPY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         -->
         <h2>Youtube Player</h2>
-        <p>※注：<b>Google以外で動画を検索！</b>　例：<a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" style="color: #00cc33;">ecosiaで検索</a></p>
+        <p>※注：<b>Google以外で動画を検索！</b>　例：<a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" class="ecosiaLink">Ecosiaで検索</a></p>
         <div>
             <div>
-                <input type="text" placeholder="動画URL" id="IN_URL" class="roundBorder">
-                <button type="button" class="button roundBorder" id="byUrlButton">OK</button>
+                <input type="text" placeholder="動画URL" id="IN_URL" class="inputText">
+                <button type="button" class="button" id="byUrlButton">OK</button>
             </div>
             <div>
-                <input type="text" placeholder="動画ID" id="IN_ID" class="roundBorder">
-                <button type="button" class="button roundBorder" id="byIdButton">OK</button>
+                <input type="text" placeholder="動画ID" id="IN_ID" class="inputText">
+                <button type="button" class="button" id="byIdButton">OK</button>
             </div>
         </div>
         <div>
         <span>動画サイズ：</span>
-        <span id="widthValueShow">横</span><input type="range" max="1000" min="0" value="560" id="widthValue" class="redColor">
-        <span id="heightValueShow">縦</span><input type="range" max="1000" min="0" value="315" id="heightValue" class="redColor">
-        <button class="button roundBorder" id="resetScreenSize">画面サイズをリセット</button>
+        <span id="widthValueShow">横</span><input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor">
+        <span id="heightValueShow">縦</span><input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor">
+        <button class="button" id="resetScreenSize">画面サイズをリセット</button>
         </div>
         <br>
         <iframe src="" id="screen" allowfullscreen frameborder="1" width="560" height="315" class="screen"></iframe>
-        <div class="bottomForm roundBorder">
-            <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="linkForm redBack">改善点はぜひここに！</a>
+        <div class="formButtonContain">
+            <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="formLinkButton redBack">改善点はぜひここに！</a>
         </div>
         <script>
+            const IN_ID = document.getElementById("IN_ID");
+            const IN_URL = document.getElementById("IN_URL");
+            const screen = document.getElementById("screen");
+            function inputClear() {IN_ID.value = ''; IN_URL.value = '';};
+            function cautionInput() {alert("入力が正しくありません")};
             const openUseId = (videoId) => {
-                const screen = document.getElementById("screen");
                 screen.src = `https://www.youtube.com/embed/${videoId}`;
                 inputClear();
             };
             const byId = () => {
-                const IN_ID = document.getElementById("IN_ID").value;
-                openUseId(IN_ID);
+                if (IN_ID.value) {
+                    openUseId(IN_ID.value);
+                } else {cautionInput()}
             };
             const byUrl = () => {
-                const IN_URL = document.getElementById("IN_URL").value;
-                let getId = IN_URL.split("?v=")[1];
-                getId = getId.split("&")[0];
-                openUseId(getId);
+                if (IN_URL.value) {
+                    let getId = IN_URL.value.split("?v=")[1];
+                    getId = getId.split("&")[0];
+                    openUseId(getId);
+                } else {cautionInput()}
             };
             function changeSize() {
-                const screen = document.getElementById("screen");
                 screen.width = document.getElementById("widthValue").value;
                 screen.height = document.getElementById("heightValue").value;
             };
-            function inputClear() {
-                const IN_ID = document.getElementById("IN_ID");
-                const IN_URL = document.getElementById("IN_URL");
-                IN_ID.value = '';
-                IN_URL.value = '';
-            };
-            /*function resetScreenSize() {
-                const widthRange = document.getElementById("widthValue");
-                const heightRange = document.getElementById("heightValue");
-                const screen = document.getElementById("screen");
-                let windowWidth = 560
-                let windowHeight = 315
-                widthRange.value = windowWidth;
-                heightRange.value = windowHeight;
-                screen.width = windowWidth;
-                screen.height = windowHeight;
-            }*/
             function setScreenSize() {
                 const widthRange = document.getElementById("widthValue");
                 const heightRange = document.getElementById("heightValue");
-                const screen = document.getElementById("screen");
                 widthRange.max = window.innerWidth - 30;
                 heightRange.max = window.innerHeight - 40;
                 let windowWidth = Math.round(window.innerWidth * 0.3);
@@ -103,7 +94,7 @@
             document.getElementById("byIdButton").addEventListener("click", byId);
             document.getElementById("widthValue").addEventListener("input", changeSize);
             document.getElementById("heightValue").addEventListener("input", changeSize);
-            document.getElementById("resetScreenSize").addEventListener("click", setScreenSize)
+            document.getElementById("resetScreenSize").addEventListener("click", setScreenSize);
         </script>
     </body>
 </html>
