@@ -20,10 +20,10 @@
             .redColor {color: #ff3333; accent-color: #ff3333;}
             .inputBack {background-color: white; border-radius: 10px; padding: 10px; margin: 8px 100px; }
             .inputFlex {display: flex; gap: 10px; align-items: center; margin: 8px 0px;}
-            .inputFlex input {flex-grow: 1; justify-content: flex-end;}
+            .inputFlex input {flex-grow: 1;}
             .inputFlex label {flex-basis: 80px;}
             .rangeFlex {display: flex; align-items: center; gap: 10px; margin: 8px 0px;}
-            .rangeFlex input {justify-content: flex-end; flex-grow: 1;}
+            .rangeFlex input {flex-grow: 1;}
             .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 1000;}
             .formLinkButton {padding: 4px 8px; display: inline-block;}
             .screen {display: block; margin: 0 auto; border: 1.5px dashed mistyrose; box-shadow: 0px 0px 10px 0px #00000050;}
@@ -51,8 +51,12 @@
             </div>
             <div class="rangeFlex">
                 動画サイズ
-                <label for="widthValue">横：</label><input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor"><span id="widthValueLabel"></span>
-                <label for="heightValue">縦：</label><input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor"><span id="heightValueLabel"></span>
+                <label for="widthValue">横：</label>
+                <input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor">
+                <span id="widthValueLabel"></span>
+                <label for="heightValue">縦：</label>
+                <input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor">
+                <span id="heightValueLabel"></span>
                 <button class="button" id="resetScreenSize">サイズリセット</button>
             </div>
         </div>
@@ -65,6 +69,15 @@
             const IN_ID = document.getElementById("IN_ID");
             const IN_URL = document.getElementById("IN_URL");
             const screen = document.getElementById("screen");
+            const debounce = (fn, delay) => {
+                let timer;
+                return function (...args) {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        fn.apply(this. args);
+                    }, delay); 
+                };
+            };
             function inputClear() {IN_ID.value = ''; IN_URL.value = '';};
             function cautionInput() {alert("入力が正しくありません")};
             function setSizeValue() {
@@ -99,10 +112,9 @@
                 let windowHeight = Math.round(window.innerHeight * 0.3);
                 widthRange.value = windowWidth;
                 heightRange.value = windowHeight;
-                screen.width = windowWidth;
-                screen.height = windowHeight;
-                widthRange.max = window.innerWidth - (window.innerWidth * 0.03);
-                heightRange.max = window.innerHeight - (window.innerHeight * 0.1);
+                widthRange.max = window.innerWidth * 0.97;
+                heightRange.max = window.innerHeight * 0.9;
+                changeSize();
                 setSizeValue();
             };
             setScreenSize();
@@ -111,6 +123,7 @@
             document.getElementById("widthValue").addEventListener("input", changeSize);
             document.getElementById("heightValue").addEventListener("input", changeSize);
             document.getElementById("resetScreenSize").addEventListener("click", setScreenSize);
+            window.addEventListener("resize", debounce(setScreenSize, 100))
         </script>
     </body>
 </html>
