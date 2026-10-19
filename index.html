@@ -4,20 +4,29 @@
         <meta charset="utf-8">
         <title>YP</title>
         <style>
-            button {cursor: pointer}
-            input {cursor: pointer;}
-            body {background: linear-gradient(to bottom, mistyrose, #ff3333); background-repeat: no-repeat; min-height: 100vh; font-family: "Zen Maru Gothic", sans-serif; font-weight: 400; }
+            button, input {cursor: pointer;}
+            body {
+                background: linear-gradient(to bottom, mistyrose, #ff3333);
+                background-repeat: no-repeat; min-height: 100vh;
+                font-family: "Zen Maru Gothic", sans-serif;
+                font-weight: 400;
+            }
             button:hover {background-color: #ff5555;}
             button:active {background-color: white;}
             a:hover {color: rebeccapurple;}
             .ecosiaLink {color: yellowgreen;}
-            .input {border-radius: 8px; margin: 8px; padding: 4px 8px;}
-            .button {border: none; background-color: #ff3333; color: mistyrose; border-radius: 8px; padding: 4px 8px;}
+            .input {border: 1px solid #ff3333; border-radius: 8px; padding: 8px; margin: 4px;}
+            .button {border: none; background-color: #ff3333; color: mistyrose; border-radius: 8px; padding: 8px 12px;} 
             .redColor {color: #ff3333; accent-color: #ff3333;}
-            .inputBack {background-color: white; border-radius: 10px; padding: 10px; margin: 8px; }
+            .inputBack {background-color: white; border-radius: 10px; padding: 10px; margin: 8px 100px; }
+            .inputFlex {display: flex; gap: 10px; align-items: center;}
+            .inputFlex input {flex-grow: 1; justify-content: flex-end;}
+            .inputFlex label {flex-basis: 80px;}
+            .rangeFlex {display: flex; align-items: center; gap: 10px;}
+            .rangeFlex input {justify-content: flex-end; flex-grow: 1;}
             .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 1000;}
-            .formLinkButton {padding: 2px 8px; display: inline-block;}
-            .screen {display: block; margin: 0 auto; border: 1px dashed mistyrose; box-shadow: 0px 0px 10px 0px #00000050;}
+            .formLinkButton {padding: 4px 8px; display: inline-block;}
+            .screen {display: block; margin: 0 auto; border: 1.5px dashed mistyrose; box-shadow: 0px 0px 10px 0px #00000050;}
         </style>
         <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,24 +39,23 @@
         <h2>Youtube Player</h2>
         <p>※注：<b>Google以外で動画を検索！</b>　例：<a href="http://ecosia.com/" target="_blank" rel="noopener noreferrer" class="ecosiaLink">Ecosiaで検索</a></p>
         <div class="inputBack">
-            <div>
+            <div class="inputFlex">
                 <label for="IN_URL">動画URL</label>
                 <input type="text" placeholder="https://www.youtube.com/watch?v=xxxxxxxxxxx" id="IN_URL" class="input">
-                <button type="button" class="button" id="byUrlButton">OK</button>
+                <button type="button" id="byUrlButton" class="button">OK</button>
             </div>
-            <div>
+            <div class="inputFlex">
                 <label for="IN_ID">動画ID</label>
                 <input type="text" placeholder="xxxxxxxxxxx" id="IN_ID" class="input">
                 <button type="button" class="button" id="byIdButton">OK</button>
             </div>
-            <div>
-            動画サイズ
-            <label for="widthValue">横：</label><input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor input"><span id="widthValueLabel"></span>
-            <label for="heightValue">縦</label><input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor input"><span id="heightValueLabel"></span>
-            <button class="button" id="resetScreenSize">画面サイズをリセット</button>
+            <div class="rangeFlex">
+                動画サイズ
+                <label for="widthValue">横：</label><input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor"><span id="widthValueLabel"></span>
+                <label for="heightValue">縦：</label><input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor"><span id="heightValueLabel"></span>
+                <button class="button" id="resetScreenSize">画面サイズをリセット</button>
+            </div>
         </div>
-        </div>
-        
         <div class="formButtonContain">
             <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="formLinkButton button">改善点はぜひここに！</a>
         </div>
