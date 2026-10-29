@@ -120,16 +120,18 @@
                 setSizeValue();
             };
             function setScreenSize() {
-                const widthRange = document.getElementById("widthValue");
-                const heightRange = document.getElementById("heightValue");
-                let windowWidth = Math.round(window.innerWidth * 0.3);
-                let windowHeight = Math.round(window.innerHeight * 0.3);
-                widthRange.value = windowWidth;
-                heightRange.value = windowHeight;
-                widthRange.max = window.innerWidth * 0.97;
-                heightRange.max = window.innerHeight * 0.9;
-                changeSize();
-                setSizeValue();
+                if (!URLPARAMS.get("v") || !URLPARAMS.get("vurl")) {
+                    const widthRange = document.getElementById("widthValue");
+                    const heightRange = document.getElementById("heightValue");
+                    let windowHeight = Math.round(window.innerHeight * 0.3);
+                    let windowWidth = Math.round(window.innerWidth * 0.3);
+                    widthRange.value = windowWidth;
+                    heightRange.value = windowHeight;
+                    widthRange.max = window.innerWidth * 0.97;
+                    heightRange.max = window.innerHeight * 0.9;
+                    changeSize();
+                    setSizeValue();
+                };
             };
             setScreenSize();
             if (URLPARAMS.get("v")) {
