@@ -132,15 +132,15 @@
                 setSizeValue();
             };
             setScreenSize();
-            if (URLPARAMS.get("vid")) {
-                openUseId(URLPARAMS.get("vid"),URLPARAMS.get("s"),URLPARAMS.get("e"));
+            if (URLPARAMS.get("v")) {
+                openUseId(URLPARAMS.get("v"),URLPARAMS.get("s"),URLPARAMS.get("e"));
             }
             else if (URLPARAMS.get("vurl")) {
                 let getId = URLPARAMS.get("vurl").split("?v=")[1];
                 getId = getId.split("&")[0];
                 openUseId(getId,URLPARAMS.get("s"),URLPARAMS.get("e"));
             };
-            if (URLPARAMS.get("vid") || URLPARAMS.get("vurl")) {
+            if (URLPARAMS.get("v") || URLPARAMS.get("vurl")) {
                 SCREEN.classList.add("fullscreened");
                 const widthRange = document.getElementById("widthValue");
                 const heightRange = document.getElementById("heightValue");
