@@ -24,9 +24,10 @@
             .inputFlex label {flex-basis: 80px;}
             .rangeFlex {display: flex; align-items: center; gap: 10px; margin: 8px 0px;}
             .rangeFlex input {flex-grow: 1;}
-            .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 1000;}
+            .formButtonContain {position: fixed; top: 10px; right: 10px; z-index: 100;}
             .formLinkButton {padding: 4px 8px; display: inline-block;}
             .screen {display: block; margin: 0 auto; border: 1.5px dashed mistyrose; box-shadow: 0px 0px 10px 0px #00000050; border-radius: 2px;}
+            .fullscreened {position:fixed; z-index:999; left:0; top:0;}
         </style>
         <!--<link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,16 +50,26 @@
                 <input type="text" placeholder="xxxxxxxxxxx" id="IN_ID" class="input">
                 <button type="button" class="button" id="byIdButton">OK</button>
             </div>
-            <div class="rangeFlex">
-                動画サイズ
-                <label for="widthValue">横：</label>
-                <input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor">
-                <span id="widthValueLabel"></span>
-                <label for="heightValue">縦：</label>
-                <input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor">
-                <span id="heightValueLabel"></span>
-                <button class="button" id="resetScreenSize">サイズリセット</button>
-            </div>
+            <details>
+                <summary>詳細</summary>
+                    <div class="rangeFlex">
+                        動画サイズ
+                        <label for="widthValue">横：</label>
+                        <input type="range" max="1000" min="1" value="560" id="widthValue" class="redColor">
+                        <span id="widthValueLabel"></span>
+                        <label for="heightValue">縦：</label>
+                        <input type="range" max="1000" min="1" value="315" id="heightValue" class="redColor">
+                        <span id="heightValueLabel"></span>
+                        <button class="button" id="resetScreenSize">サイズリセット</button>
+                    </div>
+                    <div class="rangeFlex">
+                        時間<br>(0でなし)
+                        <label for="startTime">開始</label>
+                        <input type="number" min="0" id="startTime" value="0" class="input">
+                        <label for="endTime">停止</label>
+                        <input type="number" min="0" id="endTime" value="0" class="input">
+                    </div>
+            </details>
         </div>
         <div class="formButtonContain">
             <a href="https://forms.gle/2pUqkiG17ZaAFPwx9" target="_blank" rel="noopener noreferrer" class="formLinkButton button">改善点はぜひここに！</a>
@@ -68,41 +79,44 @@
         <script>
             const IN_ID = document.getElementById("IN_ID");
             const IN_URL = document.getElementById("IN_URL");
-            const screen = document.getElementById("screen");
+            const SCREEN = document.getElementById("screen");
+            const END_TIME = document.getElementById("endTime");
+            const START_TIME = document.getElementById("startTime");
+            const URLPARAMS = new URLSearchParams(window.location.search);
             const debounce = (fn, delay) => {
                 let timer;
                 return function (...args) {
                     clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        fn.apply(this. args);
-                    }, delay); 
+                    timer = setTimeout(() => {fn.apply(this, args);}, delay);
                 };
             };
             function inputClear() {IN_ID.value = ''; IN_URL.value = '';};
             function cautionInput() {alert("入力が正しくありません")};
             function setSizeValue() {
-                document.getElementById("widthValueLabel").textContent = `${screen.width}`;
-                document.getElementById("heightValueLabel").textContent = `${screen.height}`;
+                document.getElementById("widthValueLabel").textContent = `${SCREEN.width}`;
+                document.getElementById("heightValueLabel").textContent = `${SCREEN.height}`;
             };
-            const openUseId = (videoId) => {
-                screen.src = `https://www.youtube.com/embed/${videoId}`;
+            function openUseId(videoId,s,e) {
+                SCREEN.src = `https://www.youtube.com/embed/${videoId}?start=${s}&end=${e}`;
                 inputClear();
             };
-            const byId = () => {
+            function byId() {
                 if (IN_ID.value) {
-                    openUseId(IN_ID.value);
-                } else {cautionInput()}
+                    openUseId(IN_ID.value,START_TIME.value,END_TIME.value);
+                }
+                else {cautionInput();}
             };
-            const byUrl = () => {
+            function byUrl() {
                 if (IN_URL.value) {
                     let getId = IN_URL.value.split("?v=")[1];
                     getId = getId.split("&")[0];
-                    openUseId(getId);
-                } else {cautionInput()}
+                    openUseId(getId,START_TIME.value,END_TIME.value);
+                }
+                else {cautionInput();}
             };
             function changeSize() {
-                screen.width = document.getElementById("widthValue").value;
-                screen.height = document.getElementById("heightValue").value;
+                SCREEN.width = document.getElementById("widthValue").value;
+                SCREEN.height = document.getElementById("heightValue").value;
                 setSizeValue();
             };
             function setScreenSize() {
@@ -118,12 +132,30 @@
                 setSizeValue();
             };
             setScreenSize();
+            if (URLPARAMS.get("vid")) {
+                openUseId(URLPARAMS.get("vid"),URLPARAMS.get("s"),URLPARAMS.get("e"));
+            }
+            else if (URLPARAMS.get("vurl")) {
+                let getId = URLPARAMS.get("vurl").split("?v=")[1];
+                getId = getId.split("&")[0];
+                openUseId(getId,URLPARAMS.get("s"),URLPARAMS.get("e"));
+            };
+            if (URLPARAMS.get("vid") || URLPARAMS.get("vurl")) {
+                SCREEN.classList.add("fullscreened");
+                const widthRange = document.getElementById("widthValue");
+                const heightRange = document.getElementById("heightValue");
+                widthRange.max = window.innerWidth;
+                heightRange.max = window.innerHeight;
+                widthRange.value = window.innerWidth;
+                heightRange.value = window.innerHeight;
+                changeSize();
+            }
             document.getElementById("byUrlButton").addEventListener("click", byUrl);
             document.getElementById("byIdButton").addEventListener("click", byId);
             document.getElementById("widthValue").addEventListener("input", changeSize);
             document.getElementById("heightValue").addEventListener("input", changeSize);
             document.getElementById("resetScreenSize").addEventListener("click", setScreenSize);
-            window.addEventListener("resize", debounce(setScreenSize, 100))
+            window.addEventListener("resize", debounce(setScreenSize, 100));
         </script>
     </body>
 </html>
