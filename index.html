@@ -88,24 +88,24 @@
                 return function (...args) {
                     clearTimeout(timer);
                     timer = setTimeout(() => {fn.apply(this, args);}, delay);
-                };
-            };
+                }
+            }
             function inputClear() {IN_ID.value = ''; IN_URL.value = '';};
             function cautionInput() {alert("入力が正しくありません")};
             function setSizeValue() {
                 document.getElementById("widthValueLabel").textContent = `${SCREEN.width}`;
                 document.getElementById("heightValueLabel").textContent = `${SCREEN.height}`;
-            };
+            }
             function openUseId(videoId,s,e) {
                 SCREEN.src = `https://www.youtube.com/embed/${videoId}?start=${s}&end=${e}`;
                 inputClear();
-            };
+            }
             function byId() {
                 if (IN_ID.value) {
                     openUseId(IN_ID.value,START_TIME.value,END_TIME.value);
                 }
                 else {cautionInput();}
-            };
+            }
             function byUrl() {
                 if (IN_URL.value) {
                     let getId = IN_URL.value.split("?v=")[1];
@@ -113,14 +113,15 @@
                     openUseId(getId,START_TIME.value,END_TIME.value);
                 }
                 else {cautionInput();}
-            };
+            }
             function changeSize() {
                 SCREEN.width = document.getElementById("widthValue").value;
                 SCREEN.height = document.getElementById("heightValue").value;
                 setSizeValue();
-            };
+            }
             function setScreenSize() {
-                if (!URLPARAMS.get("v") || !URLPARAMS.get("vurl")) {
+                if (!URLPARAMS.get("v") && !URLPARAMS.get("vurl")) {
+                    alert();
                     const widthRange = document.getElementById("widthValue");
                     const heightRange = document.getElementById("heightValue");
                     let windowHeight = Math.round(window.innerHeight * 0.3);
@@ -131,8 +132,8 @@
                     heightRange.max = window.innerHeight * 0.9;
                     changeSize();
                     setSizeValue();
-                };
-            };
+                }
+            }
             setScreenSize();
             if (URLPARAMS.get("v")) {
                 openUseId(URLPARAMS.get("v"),URLPARAMS.get("s"),URLPARAMS.get("e"));
@@ -141,7 +142,7 @@
                 let getId = URLPARAMS.get("vurl").split("?v=")[1];
                 getId = getId.split("&")[0];
                 openUseId(getId,URLPARAMS.get("s"),URLPARAMS.get("e"));
-            };
+            }
             if (URLPARAMS.get("v") || URLPARAMS.get("vurl")) {
                 SCREEN.classList.add("fullscreened");
                 const widthRange = document.getElementById("widthValue");
